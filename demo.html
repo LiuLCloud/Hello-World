@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>One</title>
+    <link href="ie-css3.htc"/>
+    <style>
+        body{
+            background: #000;
+        }
+        #circle{
+            position:relative;
+            margin: 150px auto;
+            width:400px;
+            height:400px;
+            border:2px solid #8bf2f1;
+            border-radius:50%;
+            /*animation:mov 20s linear infinite;*/
+            transform:perspective(800px) rotateY(60deg) rotateX(45deg);
+            transform-style:preserve-3d;
+            border: none;
+        }
+        /*@keyframes mov{*/
+            /*from{transform:rotateX(0deg) rotateZ(0deg)}*/
+            /*to{transform:rotateX(360deg) rotateZ(360deg)}*/
+        /*}*/
+        .circle{
+            position:absolute;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            border:2px solid #8bf2f1;
+            border-radius:50%;
+        }
+        .cen{
+            border:2px solid #8bf2f1;
+            border-radius:50%;
+            transform:rotateX(90deg) rotateZ(0deg) rotateY(0deg);
+
+        }
+
+        .cen1{
+            width:400px;
+            height:400px;
+
+        }
+        .cen2{
+            position:absolute;
+            top: 70px;
+            left: 10px;
+            width:380px;
+            height:380px;
+
+        }
+        .cen3{
+            position:absolute;
+            top: 135px;
+            left: 30px;
+            width:340px;
+            height:340px;
+        }
+        .cen-2{
+            position:absolute;
+            top: -50px;
+            left: 10px;
+            width:380px;
+            height:380px;
+        }
+        .cen-3{
+            position:absolute;
+            top: -75px;
+            left: 30px;
+            width:340px;
+            height:340px;
+        }
+    </style>
+</head>
+<body>
+    <div id="circle">
+        <div class="cen cen-3"></div>
+        <div class="cen cen-2"></div>
+        <div class="cen cen1"></div>
+        <div class="cen cen2"></div>
+        <div class="cen cen3"></div>
+
+    </div>
+
+    <script type="text/javascript">
+        var circle = document.getElementById("circle");
+
+        for (var i=0;i<12 ;i++ ){
+            var oDiv = document.createElement("div");
+            oDiv.className = "circle";
+            oDiv.style.transform = "rotateY("+i*30+"deg) rotateZ(45deg)";
+            circle.appendChild(oDiv);
+        };
+
+        window.onload=function()
+        {
+            var oBox=document.querySelector('#circle');
+
+            var y=0;
+            var x=0;
+            var z=0;
+            oBox.onmousedown=function(ev)
+            {
+                var oEvent=ev||event;
+                var disX=oEvent.clientX-y;
+                var disY=oEvent.clientY-x;
+                document.onmousemove=function(ev)
+                {
+                    var oEvent=ev||event;
+                    x=oEvent.clientY-disY;
+                    y=oEvent.clientX-disX;
+                    z=x+y;
+                    oBox.style.transform="perspective(800px) rotateX("+x+"deg) rotateY("+y+"deg) rotateZ("+z+"deg)";
+                };
+
+                document.onmouseup=function()
+                {
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                };
+                return false;
+            };
+        };
+    </script>
+</body>
+</html>
